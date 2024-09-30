@@ -106,7 +106,7 @@ class PlayedApple {
 		this.redApple = redApple;
 	}
 }
-
+//test
 public class Apples2Apples {
 	public ArrayList<String> redApples;
 	public ArrayList<String> greenApples;
