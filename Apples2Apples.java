@@ -158,7 +158,7 @@ public class Apples2Apples {
 				System.out.println("\n"+judgeString);
 				break;
 			}
-
+//test
 			System.out.println("*****************************************************");
 			if(judge) {
 				System.out.println("**                 NEW ROUND - JUDGE               **");				
