@@ -1,0 +1,1 @@
+to connect, write ipconfig on host in command prompt and then use that ip address under ipv4 address on the joining pc to connect. must be on local network.
