@@ -7,6 +7,7 @@ import java.io.*;
 import java.net.*;
 import java.util.concurrent.*;
 
+import PlayerInfo;
 
 class Player {
 	public int playerID;

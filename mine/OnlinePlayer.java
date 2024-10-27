@@ -1,99 +1,85 @@
-package mine;
-
-import java.util.*; 
-import java.nio.charset.StandardCharsets; 
-import java.nio.file.*; 
-import java.io.*; 
-import java.net.*;
-import java.util.concurrent.*;
-
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 public class OnlinePlayer {
-    public static void main(String argv[]) {
-        OnlinePlayer game;
-        System.out.println("Starting game");
-        try {        
-            game = new OnlinePlayer(argv[0]);
+
+    private Socket socket;
+    private BufferedReader in;
+    private PrintWriter out;
+
+    public OnlinePlayer(String serverAddress, int serverPort) {
+        try {
+            // Connect to the server
+            socket = new Socket(serverAddress, serverPort);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
+            System.out.println("Connected to the server.");
+
+            // Start listening for messages from the server
+            listenForMessages();
+
+        } catch (Exception e) {
+            System.out.println("Failed to connect to server: " + e.getMessage());
         }
-        catch (Exception e) {
-            System.out.println("Something went wrong starting the online player");
+    }
 
+    private void listenForMessages() {
+        String message;
+        try {
+            // Continuously read messages from the server
+            while ((message = in.readLine()) != null) {
+                handleMessage(message);
+            }
+        } catch (Exception e) {
+            System.out.println("Error reading message: " + e.getMessage());
+        } finally {
+            closeConnection();
         }
-	}
-    public OnlinePlayer(String ipAddress) throws Exception {
-		//Connect to server
-		Socket aSocket = new Socket(ipAddress, 2048);
-		DataOutputStream outToServer = new DataOutputStream(aSocket.getOutputStream());
-		BufferedReader inFromServer = new BufferedReader(new InputStreamReader(aSocket.getInputStream()));
-		//Get the hand of apples from server
-		String[] applesString = (inFromServer.readLine()).split(";");
-		ArrayList<String> hand = new ArrayList<String>(Arrays.asList(applesString));
+    }
+
+    private void handleMessage(String message) {
+        // Extract the keyword (assuming the first word is the keyword)
+        String[] parts = message.split(" ", 2);
+        String keyword = parts[0];
+        String content = parts.length > 1 ? parts[1] : "";
+
+        // Perform actions based on the keyword
+        switch (keyword.toLowerCase()) {
+            case "GreenApple":
+                System.out.println("The green apple chosen is: " + content);
+                break;
+            case "Play":
+                System.out.println("Play one of the cards you have: \n " + content);
+                break;
+            case "Judge":
+                System.out.println("Judge one of the following cards: \n " + content);
+                break;
+            case "game":
+                System.out.println("Game message: " + content);
+                break;
+            default:
+                System.out.println("Unknown command: " + message);
+                break;
+        }
+    }
+
+    private void closeConnection() {
+        try {
+            if (socket != null) socket.close();
+            if (in != null) in.close();
+            if (out != null) out.close();
+            System.out.println("Disconnected from the server.");
+        } catch (Exception e) {
+            System.out.println("Error closing connection: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
         
-        
-        
-        
-        while(true) {
-			//receive info about being the judge or not
-			String judgeString = inFromServer.readLine();
-			boolean judge = (judgeString.compareTo("JUDGE")==0);
-			//If someone wins the game the FINISHED string is written, and it just happens to be caught here
-			if(judgeString.startsWith("FINISHED")) {
-				System.out.println("\n"+judgeString);
-				break;
-			}
-//test
-			System.out.println("*****************************************************");
-			if(judge) {
-				System.out.println("**                 NEW ROUND - JUDGE               **");				
-			} else {
-				System.out.println("**                    NEW ROUND                    **");
-
-			}
-			System.out.println("*****************************************************");
-
-			//receive and print the green apple that has been played
-			String greenApple = inFromServer.readLine();
-			System.out.println(greenApple + "\n");
-
-			if(!judge) {
-				//Play your red apple
-				System.out.println("Choose a red apple to play");
-				for(int i=0; i<hand.size(); i++) {
-					System.out.println("["+i+"]   " + hand.get(i));
-				}
-				System.out.println("");
-				int choice;
-				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-				String input=br.readLine();
-				choice = Integer.parseInt(input);
-				outToServer.writeBytes(hand.get(choice)+"\n");
-				hand.remove(choice);
-				System.out.println("Waiting for other players\n");				
-			}
-
-			//Receive the played apples from server
-			String playedApples = (inFromServer.readLine()).replaceAll("#", "\n");
-			System.out.println("\nThe following apples were played:\n"+playedApples);
-
-			if(judge) {
-				//choose which red apple should win
-				System.out.println("Choose which red apple wins\n");
-				int choice;
-				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-				String input=br.readLine();
-				outToServer.writeBytes(input+"\n");
-			}
-
-			String winningRedApple = inFromServer.readLine();
-			System.out.println(winningRedApple + "\n");
-
-			//Non judges get a new red apple to replace the one that was played
-			if(!judge) {
-				String newRedApple = inFromServer.readLine();
-				hand.add(newRedApple);
-			}
-		}
-	
+        int serverPort = 2024; // Port number should match the server's port
+        // Create and start the OnlinePlayer client
+        OnlinePlayer client = new OnlinePlayer(args[0], serverPort);
     }
 }
