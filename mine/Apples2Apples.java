@@ -8,7 +8,6 @@ import java.net.*;
 import java.util.concurrent.*;
 
 
-
 class Player {
 	public int playerID;
 	public boolean isBot;
@@ -109,9 +108,7 @@ class PlayedApple {
 		this.redApple = redApple;
 	}
 }
-
 //test test again
-
 public class Apples2Apples {
 	public ArrayList<String> redApples;
 	public ArrayList<String> greenApples;
