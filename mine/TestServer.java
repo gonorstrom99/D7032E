@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class TestServer {
 
     public static void main(String[] args) {
-        int port = 12345;
+        int port = 2024;
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server is running on port " + port);
