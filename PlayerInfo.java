@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 class PlayerInfo {
    private int playerId;
-   public ArrayList<String> hand;
+    ArrayList<String> hand;
    private ArrayList<String> greenApples = new ArrayList<>();
    private boolean judge = false;
 //    public String submittedAnswer;
@@ -17,26 +17,29 @@ class PlayerInfo {
     this.hand = new ArrayList<>();
 }
 
-public int getPlayerId() {
-    return playerId;
-}
+    public int getPlayerId() {
+        return playerId;
+    }
 
-public boolean isJudge() {
-    return judge;
-}
+    public boolean isJudge() {
+        return judge;
+    }
 
-public void setJudge(boolean judge) {
-    this.judge = judge;
-}
+    public void setJudge(boolean judge) {
+        this.judge = judge;
+    }
 
-public ArrayList<String> getHand() {
-    return hand;
-}
+    public ArrayList<String> getHand() {
+        return hand;
+    }
 
-public void addCardToHand(String card) {
-    hand.add(card);
-}
-public void addGreenApple(String card){
-    this.greenApples.add(card);
-}
+    public void addCardToHand(String card) {
+        hand.add(card);
+    }
+    public void addGreenApple(String card){
+        this.greenApples.add(card);
+    }
+    public int GreenAppleSize(){
+        return greenApples.size();
+    }
 }

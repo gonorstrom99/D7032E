@@ -10,6 +10,7 @@ public class GamePlayer {
     private BufferedReader in;
     private PrintWriter out;
     private Scanner scanner;
+    private int numberOfAnswers;
     public GamePlayer(String serverAddress, int serverPort) {
         try {
             // Connect to the sender (server) on specified IP and port
@@ -50,9 +51,30 @@ public class GamePlayer {
         // System.out.println(content);
 
         // If the keyword is "play" or "judge", prompt for an integer and send it back
-    if ("play".equals(keyword)){
+        if ("play".equals(keyword)){
+            play(keyword, content);
+    
+            
+        }
+        else if("judge".equals(keyword)){
+            judge();
+            
+        }
+        else if("showanswers".equals(keyword)){
+            String[] answers = content.split(" ", 2);
+            numberOfAnswers = Integer.valueOf(answers[0]);
+            System.out.println(content);
 
-  
+        }
+        else {
+            //This is only for messeages that dont require anything except printing,
+            //such as green apples or telling the players who the winner is etc.
+            System.out.println(keyword + " " + content);
+        }
+        
+    
+    }
+    private void play(String keyword, String content){
         String[] cards = content.split("#");
 
         // Print each card on a new line
@@ -63,20 +85,37 @@ public class GamePlayer {
             i++;
         }
         int response = getUserInput("Which card do you want to play? " + keyword + ": ");
+        while (response < 0 || response > 6){
+            response = getUserInput("That is not a valid option");
+
+        }
+
         out.println(response);  // Send the response back to the sender
         System.out.println("---------------------------------------------------------------");
 
     }
-    else if("judge".equals(keyword)){
-        int response = getUserInput("Which card shall win? " + keyword + ": ");
+    private void judge(){
+        int response = getUserInput("Which card shall win? ");
+        while (response < 0 || response > numberOfAnswers-1){
+            response = getUserInput("That is not a valid option \n");
+
+        }
         out.println(response);  // Send the response back to the sender
     }
-    else{
-        System.out.println(keyword + " " + content);
-    
-    }
-    
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private int getUserInput(String prompt) {
         int choice = -1;
