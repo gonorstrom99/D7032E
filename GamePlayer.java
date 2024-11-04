@@ -6,11 +6,11 @@ import java.util.Scanner;
 
 public class GamePlayer {
 
-    private Socket socket;
-    private BufferedReader in;
-    private PrintWriter out;
-    private Scanner scanner;
-    private int numberOfAnswers;
+    protected Socket socket;
+    protected BufferedReader in;
+    protected PrintWriter out;
+    protected Scanner scanner;
+    protected int numberOfAnswers;
     public GamePlayer(String serverAddress, int serverPort) {
         try {
             // Connect to the sender (server) on specified IP and port
@@ -29,7 +29,7 @@ public class GamePlayer {
         }
     }
 
-    private void listenForMessages() {
+    protected void listenForMessages() {
         String message;
         try {
             // Continuously listen for messages from the sender
@@ -41,7 +41,7 @@ public class GamePlayer {
         }
     }
 
-    private void handleMessage(String message) {
+    protected void handleMessage(String message) {
         // Get the keyword (first word in the message)
         String[] parts = message.split(" ", 2);
         String keyword = parts[0].toLowerCase();
@@ -74,7 +74,7 @@ public class GamePlayer {
         
     
     }
-    private void play(String keyword, String content){
+    protected void play(String keyword, String content){
         String[] cards = content.split("#");
 
         // Print each card on a new line
@@ -94,7 +94,7 @@ public class GamePlayer {
         System.out.println("---------------------------------------------------------------");
 
     }
-    private void judge(){
+    protected void judge(){
         int response = getUserInput("Which card shall win? ");
         while (response < 0 || response > numberOfAnswers-1){
             response = getUserInput("That is not a valid option \n");
@@ -103,21 +103,7 @@ public class GamePlayer {
         out.println(response);  // Send the response back to the sender
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private int getUserInput(String prompt) {
+    protected int getUserInput(String prompt) {
         int choice = -1;
         System.out.print(prompt);
         while (true) {
@@ -131,7 +117,7 @@ public class GamePlayer {
         return choice;
     }
 
-    private void closeConnection() {
+    protected void closeConnection() {
         try {
             if (socket != null) socket.close();
             if (in != null) in.close();
