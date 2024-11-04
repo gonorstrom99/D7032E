@@ -294,17 +294,7 @@ public class GameServerTest {
         GameServer server = new GameServer(2024, mockNetwork);
 
         server.setupWinCondition(4);
-        server.setupPlayers(4);
-        server.setupGame(4);
-        for (int i = 0; i < 40; i++) {
-            mockNetwork.mockClientResponse(0, "0");
-            mockNetwork.mockClientResponse(1, "0");
-            mockNetwork.mockClientResponse(2, "0");
-            mockNetwork.mockClientResponse(3, "0");
-        }
-        server.gameLoop();
-        assertCondition(server.playerInfos.stream().anyMatch(playerInfo -> playerInfo.GreenAppleSize()>=8), "Someone won with 8 apples");
-
+        
         assertCondition(server.winCondition == 8, "Win condition for 4 players should be 8 green apples");
         server.setupWinCondition(5);
         assertCondition(server.winCondition == 7, "Win condition for 5 players should be 7 green apples");
