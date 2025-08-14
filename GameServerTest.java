@@ -44,7 +44,7 @@ public class GameServerTest {
     // 1. Test reading green apples from a file
     public void testReadGreenApples() {
         MockNetwork mockNetwork = new MockNetwork(2024);
-        GameServer server = new GameServer(2024, mockNetwork);
+        GameServer server = new GameServer(mockNetwork);
         server.playedApples.clear(); // Clear playedApples before starting the test
 
         try {
@@ -58,7 +58,7 @@ public class GameServerTest {
     // 2. Test reading red apples from a file
     public void testReadRedApples() {
         MockNetwork mockNetwork = new MockNetwork(2024);
-        GameServer server = new GameServer(2024, mockNetwork);
+        GameServer server = new GameServer(mockNetwork);
         server.playedApples.clear(); // Clear playedApples before starting the test
 
         try {
@@ -72,7 +72,7 @@ public class GameServerTest {
     // 3. Test shuffling both decks
     public void testShuffleDecks() {
         MockNetwork mockNetwork = new MockNetwork(2024);
-        GameServer server = new GameServer(2024, mockNetwork);
+        GameServer server = new GameServer(mockNetwork);
         server.playedApples.clear(); // Clear playedApples before starting the test
 
         try {
@@ -88,7 +88,7 @@ public class GameServerTest {
     // 4. Test dealing seven red apples to each player
     public void testDealSevenCards() {
         MockNetwork mockNetwork = new MockNetwork(2024);
-        GameServer server = new GameServer(2024, mockNetwork);
+        GameServer server = new GameServer(mockNetwork);
         server.playedApples.clear(); // Clear playedApples before starting the test
 
         try {
@@ -105,7 +105,7 @@ public class GameServerTest {
     // 5. Test random selection of the judge
     public void testRandomJudgeSelection() {
         MockNetwork mockNetwork = new MockNetwork(2024);
-        GameServer server = new GameServer(2024, mockNetwork);
+        GameServer server = new GameServer(mockNetwork);
         server.playedApples.clear(); // Clear playedApples before starting the test
 
         server.setupPlayers(4);
@@ -117,7 +117,7 @@ public class GameServerTest {
     // 6. Test drawing a green apple
     public void testDrawGreenApple() {
         MockNetwork mockNetwork = new MockNetwork(2024);
-        GameServer server = new GameServer(2024, mockNetwork);
+        GameServer server = new GameServer(mockNetwork);
         server.playedApples.clear(); // Clear playedApples before starting the test
 
         server.setupPlayers(4);
@@ -130,7 +130,7 @@ public class GameServerTest {
     // 7. Test players (except judge) playing a red apple
     public void testPlay() {
         MockNetwork mockNetwork = new MockNetwork(2024);
-        GameServer server = new GameServer(2024, mockNetwork);
+        GameServer server = new GameServer(mockNetwork);
         server.playedApples.clear(); // Clear playedApples before starting the test
 
         // Setup players and game state
@@ -164,7 +164,7 @@ public class GameServerTest {
     // 8. Test randomizing the order of played red apples
     public void testShufflePlayedApples() {
         MockNetwork mockNetwork = new MockNetwork(2024);
-        GameServer server = new GameServer(2024, mockNetwork);
+        GameServer server = new GameServer(mockNetwork);
         server.playedApples.clear(); // Clear playedApples before starting the test
 
         // Setup players and game state
@@ -188,7 +188,7 @@ public class GameServerTest {
     // 9. Test that all players (except judge) play before results
     public void testAllPlayersPlayBeforeShow() {
         MockNetwork mockNetwork = new MockNetwork(2024);
-        GameServer server = new GameServer(2024, mockNetwork);
+        GameServer server = new GameServer(mockNetwork);
         server.playedApples.clear(); // Clear playedApples before starting the test
 
         server.setupPlayers(4);
@@ -210,7 +210,7 @@ public class GameServerTest {
     // 10. Test judge selects favorite red apple
     public void testJudgeSelectsFavorite() {
         MockNetwork mockNetwork = new MockNetwork(2024);
-        GameServer server = new GameServer(2024, mockNetwork);
+        GameServer server = new GameServer(mockNetwork);
         server.playedApples.clear(); // Clear playedApples before starting the test
 
         // Setup players and game state
@@ -228,7 +228,7 @@ public class GameServerTest {
     // 11. Test discarding submitted red apples
     public void testDiscardSubmittedApples() {
         MockNetwork mockNetwork = new MockNetwork(2024);
-        GameServer server = new GameServer(2024, mockNetwork);
+        GameServer server = new GameServer(mockNetwork);
         server.playedApples.clear(); // Clear playedApples before starting the test
 
         server.setupPlayers(4);
@@ -250,7 +250,7 @@ public class GameServerTest {
     // 12. Test refilling players' hands
     public void testRefillPlayersHand() {
         MockNetwork mockNetwork = new MockNetwork(2024);
-        GameServer server = new GameServer(2024, mockNetwork);
+        GameServer server = new GameServer(mockNetwork);
         server.playedApples.clear(); // Clear playedApples before starting the test
 
         server.setupPlayers(4);
@@ -268,7 +268,7 @@ public class GameServerTest {
     // 13. Test switching judge
     public void testSwitchJudge() {
         MockNetwork mockNetwork = new MockNetwork(2024);
-        GameServer server = new GameServer(2024, mockNetwork);
+        GameServer server = new GameServer(mockNetwork);
 
         server.setupPlayers(4);
         server.setupGame(4);
@@ -281,7 +281,7 @@ public class GameServerTest {
     // 14. Test keeping score by counting green apples won
     public void testKeepScore() {
         MockNetwork mockNetwork = new MockNetwork(2024);
-        GameServer server = new GameServer(2024, mockNetwork);
+        GameServer server = new GameServer(mockNetwork);
 
         server.setupPlayers(4);
         server.playerInfos.get(0).addGreenApple("Green Apple");
@@ -291,7 +291,7 @@ public class GameServerTest {
     // 15. Test win condition based on player count
     public void testWinCondition() {
         MockNetwork mockNetwork = new MockNetwork(2024);
-        GameServer server = new GameServer(2024, mockNetwork);
+        GameServer server = new GameServer(mockNetwork);
 
 
         for (int numberOfPlayers = 4; numberOfPlayers<=8; numberOfPlayers++){

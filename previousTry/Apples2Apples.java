@@ -1,4 +1,4 @@
-package mine;
+package previousTry;
 
 import java.util.*; 
 import java.nio.charset.StandardCharsets; 

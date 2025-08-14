@@ -1,4 +1,4 @@
-package mine;
+package previousTry;
 
 public class Network {
     

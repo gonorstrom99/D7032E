@@ -1,4 +1,4 @@
-package mine;
+package previousTry;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

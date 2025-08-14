@@ -1,4 +1,4 @@
-package mine;
+package previousTry;
 
 import java.io.PrintWriter;
 import java.net.ServerSocket;
